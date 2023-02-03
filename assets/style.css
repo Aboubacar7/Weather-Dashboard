@@ -2,6 +2,8 @@
     background-color: rgb(59, 59, 134);
     text-align: center;
 }
-.countries{
-   
+.label{
+ font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+ font-size: larger;
+ 
 }
