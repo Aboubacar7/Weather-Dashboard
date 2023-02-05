@@ -7,6 +7,7 @@ var API_KEY = "ecf93a350f79170003274920b23e7b6d"
 var cityInput = document.querySelector('#search-city')
 var searchBtn = document.querySelector('.btn')
 var fiveDayEl = document.querySelector('.five-day')
+var cityHistory = document.querySelector('.city-History')
 var dayjs = dayjs()
 
 searchBtn.addEventListener('click', getCity)
@@ -47,16 +48,20 @@ function getCurrentForecast(city) {
 
 
             var currentTemp = document.querySelector('.current-temp')
-            currentTemp.textContent = "Temp: " + currentData.main.temp + " F"
+            currentTemp.textContent = "Temp: " + currentData.main.temp + "˚F"
 
             var currentWind = document.querySelector('.current-wind')
             currentWind.textContent = "Wind: " + currentData.wind.speed + " MHP"
 
-            var currentTemp = document.querySelector('.current-humidity')
-            currentTemp.textContent = "Temps: " + currentData.main.humidity + "%"
+            var currentHumidity = document.querySelector('.current-humidity')
+            currentHumidity.textContent = "Humidity: " + currentData.main.humidity + "%"
         })
         .catch(err => console.log(err))
+        
 }
+
+
+
 
 function getCityHistory() {
     var saveCity = JSON.parse(localStorage.getItem("city"))
@@ -71,6 +76,13 @@ function getCityHistory() {
 }
 getCityHistory()
 
+cityHistory.addEventListener("click", function(event){
+    event.target.getItem('button')
+    console.log(button)
+    var city = button.innerHTML;
+
+   
+ })
 
 function getFiveDayForecast(lat, lon) {
 
@@ -107,7 +119,7 @@ function getFiveDayForecast(lat, lon) {
 
 
                 var fiveDayTemp = document.createElement('p')
-                fiveDayTemp.textContent = "Temp: " + fiveData.list[i * 8].main.temp + " F"
+                fiveDayTemp.textContent = "Temp: " + fiveData.list[i * 8].main.temp + "  ˚F"
                 card.append(fiveDayTemp)
 
                 var fiveDayWind = document.createElement('p')
