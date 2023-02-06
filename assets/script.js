@@ -38,14 +38,18 @@ function getCurrentForecast(city) {
             var lon = currentData.coord.lon
             getFiveDayForecast(lat, lon)
 
-            var currentD = document.querySelector(".current-D")
-            currentD.setAttribute('class', ' card ')
+            var currentForecast = document.querySelector(".current-forecast")
+            currentForecast.setAttribute('class', ' card ')
 
             var currentCity = document.querySelector('.current-city')
             currentCity.setAttribute("style", " font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;")
 
             currentCity.textContent = currentData.name + dayjs.format("     (MM/DD/YYYY) 🔆")
-
+            if (currentData.name.temp > 50) {
+                currentData.name.textContent = currentData.name + dayjs.format("     (MM/DD/YYYY) 🔆")
+            } else {
+                currentData.name.textContent = currentData.name + dayjs.format("     (MM/DD/YYYY) 🌥️")
+            }
 
             var currentTemp = document.querySelector('.current-temp')
             currentTemp.textContent = "Temp: " + currentData.main.temp + "˚F"
@@ -57,32 +61,31 @@ function getCurrentForecast(city) {
             currentHumidity.textContent = "Humidity: " + currentData.main.humidity + "%"
         })
         .catch(err => console.log(err))
-        
+
 }
-
-
 
 
 function getCityHistory() {
     var saveCity = JSON.parse(localStorage.getItem("city"))
+    var cityHistory = document.querySelector('.city-History')
     for (var i = 0; i < 8; i++) {
 
         var button = document.createElement("button")
         button.innerText = saveCity[i]
-        var cityHistory = document.querySelector('.city-History')
-
+        button.setAttribute("style", ' display: list-item; width: 200px; margin-top:1em ')
         cityHistory.append(button)
     }
 }
 getCityHistory()
 
-cityHistory.addEventListener("click", function(event){
-    event.target.getItem('button')
-    console.log(button)
-    var city = button.innerHTML;
 
-   
- })
+cityHistory.addEventListener("click", function (event) {
+    var button = event.target
+    console.log(event.target)
+    var city = button.innerHTML;
+    getCurrentForecast(city)
+})
+
 
 function getFiveDayForecast(lat, lon) {
 
@@ -98,8 +101,8 @@ function getFiveDayForecast(lat, lon) {
             fiveDayF.textContent = ""
             fiveDayF.textContent = " 5-Day Forecast:  "
             FiveDayForecastTitle.append(fiveDayF)
-            fiveDayF.setAttribute ("style", 'font-family: Impact, Haettenschweiler, Arial Narrow Bold, sans-serif')
-        
+            fiveDayF.setAttribute("style", 'font-family: Impact, Haettenschweiler, Arial Narrow Bold, sans-serif')
+
 
             for (var i = 0; i < 5; i++) {
 
@@ -114,7 +117,11 @@ function getFiveDayForecast(lat, lon) {
                 card.append(fiveDayDate)
 
                 var fiveDayImo = document.createElement('h5')
-                fiveDayImo.textContent = " 🔆 "
+                if (fiveData.list[i * 8].main.temp > 50) {
+                    fiveDayImo.textContent = " 🌥️ "
+                } else {
+                    fiveDayImo.textContent = " ☀️ "
+                }
                 card.append(fiveDayImo)
 
 
