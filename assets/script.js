@@ -39,16 +39,17 @@ function getCurrentForecast(city) {
             getFiveDayForecast(lat, lon)
 
             var currentForecast = document.querySelector(".current-forecast")
-            currentForecast.setAttribute('class', ' card ')
+            currentForecast.classList.add('card')
+            console.log(currentForecast);
 
             var currentCity = document.querySelector('.current-city')
             currentCity.setAttribute("style", " font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;")
 
             currentCity.textContent = currentData.name + dayjs.format("     (MM/DD/YYYY) 🔆")
-            if (currentData.name.temp > 50) {
-                currentData.name.textContent = currentData.name + dayjs.format("     (MM/DD/YYYY) 🔆")
+            if (currentData.name.temp >= 50) {
+                currentCity.textContent = currentData.name.temp + dayjs.format("     (MM/DD/YYYY) 🌥️")
             } else {
-                currentData.name.textContent = currentData.name + dayjs.format("     (MM/DD/YYYY) 🌥️")
+                currentCity.textContent = currentData.name + dayjs.format("     (MM/DD/YYYY) 🔆")
             }
 
             var currentTemp = document.querySelector('.current-temp')
@@ -95,7 +96,8 @@ function getFiveDayForecast(lat, lon) {
             console.log(fiveData)
 
             var FiveDayForecastTitle = document.querySelector(".FivedayTitle")
-            fiveDayEl.innerHTML = ""
+            FiveDayForecastTitle.innerHTML ="";
+            fiveDayEl.innerHTML = "";
 
             var fiveDayF = document.createElement('p')
             fiveDayF.textContent = ""
