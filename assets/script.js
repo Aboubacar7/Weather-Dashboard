@@ -44,13 +44,12 @@ function getCurrentForecast(city) {
 
             var currentCity = document.querySelector('.current-city')
             currentCity.setAttribute("style", " font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;")
+            console.log(currentData.weather[0].icon)
+            currentCity.textContent = currentData.name + dayjs.format("     (MM/DD/YYYY) ")
+            var currentIcon = document.createElement("img")
+            currentIcon.src = "https://openweathermap.org/img/wn/" + currentData.weather[0].icon + ".png"
+            currentCity.append(currentIcon)
 
-            currentCity.textContent = currentData.name + dayjs.format("     (MM/DD/YYYY) 🔆")
-            if (currentData.name.temp >= 50) {
-                currentCity.textContent = currentData.name.temp + dayjs.format("     (MM/DD/YYYY) 🌥️")
-            } else {
-                currentCity.textContent = currentData.name + dayjs.format("     (MM/DD/YYYY) 🔆")
-            }
 
             var currentTemp = document.querySelector('.current-temp')
             currentTemp.textContent = "Temp: " + currentData.main.temp + "˚F"
@@ -96,7 +95,7 @@ function getFiveDayForecast(lat, lon) {
             console.log(fiveData)
 
             var FiveDayForecastTitle = document.querySelector(".FivedayTitle")
-            FiveDayForecastTitle.innerHTML ="";
+            FiveDayForecastTitle.innerHTML = "";
             fiveDayEl.innerHTML = "";
 
             var fiveDayF = document.createElement('p')
@@ -118,13 +117,13 @@ function getFiveDayForecast(lat, lon) {
                 fiveDayDate.textContent = dayjs.add(i + 1, 'days').format("MM/DD/YYYY")
                 card.append(fiveDayDate)
 
-                var fiveDayImo = document.createElement('h5')
-                if (fiveData.list[i * 8].main.temp > 50) {
-                    fiveDayImo.textContent = " 🌥️ "
-                } else {
-                    fiveDayImo.textContent = " ☀️ "
-                }
-                card.append(fiveDayImo)
+                //var fiveDayImo = document.createElement('h5')
+                var fiveDayIcon = document.createElement("img")
+                fiveDayIcon.src = "https://openweathermap.org/img/wn/" + fiveData.list[i * 8].weather[0].icon + ".png"
+
+                fiveDayIcon.textContent = "";
+
+                card.append(fiveDayIcon)
 
 
                 var fiveDayTemp = document.createElement('p')
