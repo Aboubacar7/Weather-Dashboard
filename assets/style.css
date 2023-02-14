@@ -2,7 +2,15 @@
     background-color: rgb(59, 59, 134);
     text-align: center;
 }
-.label{
- font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 
+@media screen and (max-width: 820px) {
+    .main-content {
+        flex-direction: column;
+    }
+    .five-day img {
+        width: 25%;
+    }
+    .five-day{
+        flex-wrap: wrap;
+    }
 }

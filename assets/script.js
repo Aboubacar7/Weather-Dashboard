@@ -18,6 +18,7 @@ function getCity(event) {
 
 
     getCurrentForecast(city)
+    
 }
 
 function getCurrentForecast(city) {
@@ -32,7 +33,7 @@ function getCurrentForecast(city) {
 
             storedCities.push(currentData.name);
             localStorage.setItem("city", JSON.stringify(storedCities));
-
+            getCityHistory()
 
             var lat = currentData.coord.lat
             var lon = currentData.coord.lon
@@ -68,7 +69,8 @@ function getCurrentForecast(city) {
 function getCityHistory() {
     var saveCity = JSON.parse(localStorage.getItem("city"))
     var cityHistory = document.querySelector('.city-History')
-    for (var i = 0; i < 8; i++) {
+    cityHistory.innerHTML= ""
+    for (var i = 0; i < saveCity.length; i++) {
 
         var button = document.createElement("button")
         button.innerText = saveCity[i]
@@ -76,7 +78,7 @@ function getCityHistory() {
         cityHistory.append(button)
     }
 }
-getCityHistory()
+
 
 
 cityHistory.addEventListener("click", function (event) {
